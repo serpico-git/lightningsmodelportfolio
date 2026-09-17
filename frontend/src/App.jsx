@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/static-components */
 import { useState, useMemo, useEffect } from 'react'
-import * as XLSX from 'xlsx'
 import axios from 'axios'
 import {
   LineChart,
@@ -465,8 +464,8 @@ const HoldingsTable = ({ portfolioData }) => {
                   <td className="px-6 py-4">
                     <span
                       className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${isClosed
-                          ? 'bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]'
-                          : 'bg-[hsl(var(--success)/12%)] text-[hsl(var(--success))]'
+                        ? 'bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]'
+                        : 'bg-[hsl(var(--success)/12%)] text-[hsl(var(--success))]'
                         }`}
                     >
                       {isClosed ? 'Closed' : 'Open'}
@@ -548,15 +547,8 @@ function App() {
   useEffect(() => {
     const fetchPortfolio = async () => {
       try {
-        const response = await fetch('/modelportfolio.csv')
-        if (!response.ok) throw new Error('Could not find modelportfolio.csv in the public folder.')
-        const arrayBuffer = await response.arrayBuffer()
-        const workbook = XLSX.read(arrayBuffer)
-        const sheetName = workbook.SheetNames[0]
-        const transactions = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
-        // const apiRes = await axios.post('http://127.0.0.1:8787/api/portfolio', { transactions })
         const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8787'
-        const apiRes = await axios.post(`${apiUrl}/api/portfolio`, { transactions })
+        const apiRes = await axios.get(`${apiUrl}/api/portfolio`)
         setData(apiRes.data)
       } catch (err) {
         console.error(err)
@@ -567,6 +559,7 @@ function App() {
     }
     fetchPortfolio()
   }, [])
+
 
   if (loading) {
     return (
@@ -607,10 +600,10 @@ function App() {
       <h3 className="text-sm font-medium text-[hsl(var(--muted-foreground))]">{title}</h3>
       <div
         className={`mt-2 text-3xl font-semibold tracking-tight ${highlight
-            ? value >= 0
-              ? 'text-[hsl(var(--success))]'
-              : 'text-[hsl(var(--destructive))]'
-            : 'text-[hsl(var(--foreground))]'
+          ? value >= 0
+            ? 'text-[hsl(var(--success))]'
+            : 'text-[hsl(var(--destructive))]'
+          : 'text-[hsl(var(--foreground))]'
           }`}
       >
         {typeof value === 'number'

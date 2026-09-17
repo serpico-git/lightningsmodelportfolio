@@ -1,17 +1,19 @@
 {
-  "name": "backend",
+  "name": "mpf-backend",
+  "version": "1.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
-    "hono": "^4.12.27",
-    "yahoo-finance2": "^3.15.4"
+    "hono": "^4.6.0",
+    "yahoo-finance2": "^4.0.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260702.1",
-    "wrangler": "^4.4.0"
+    "@cloudflare/workers-types": "^4.20240925.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.132.0"
   }
 }

@@ -1,0 +1,371 @@
+[
+  {
+    "Symbol": "NSE:TMPV",
+    "Side": "Sell",
+    "Qty": 17.0,
+    "Fill Price": 301.05,
+    "Commission": 0.0,
+    "Closing Time": "2026-09-16T00:00:00"
+  },
+  
+  {
+    "Symbol": "NSE:TATACHEM",
+    "Side": "Buy",
+    "Qty": 16.0,
+    "Fill Price": 651.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-16T04:56:09"
+  },
+  {
+    "Symbol": "NSE:ASIANPAINT",
+    "Side": "Buy",
+    "Qty": 5.0,
+    "Fill Price": 2185.4,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-16T04:55:43"
+  },
+  {
+    "Symbol": "NSE:BERGEPAINT",
+    "Side": "Buy",
+    "Qty": 26.0,
+    "Fill Price": 396.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-16T04:55:16"
+  },
+  {
+    "Symbol": "NSE:KANSAINER",
+    "Side": "Buy",
+    "Qty": 57.0,
+    "Fill Price": 178.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-16T04:54:37"
+  },
+  {
+    "Symbol": "NSE:ADFFOODS",
+    "Side": "Buy",
+    "Qty": 56.0,
+    "Fill Price": 180.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-16T04:52:44"
+  },
+  {
+    "Symbol": "NSE:JUBLFOOD",
+    "Side": "Buy",
+    "Qty": 23.0,
+    "Fill Price": 452.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-16T04:52:17"
+  },
+  {
+    "Symbol": "NSE:IRFC",
+    "Side": "Buy",
+    "Qty": 103.0,
+    "Fill Price": 96.5,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T07:54:13"
+  },
+  {
+    "Symbol": "NSE:ADANIGREEN",
+    "Side": "Buy",
+    "Qty": 11.0,
+    "Fill Price": 839.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T07:42:09"
+  },
+  {
+    "Symbol": "NSE:ADANIENT",
+    "Side": "Buy",
+    "Qty": 5.0,
+    "Fill Price": 1983.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T07:39:32"
+  },
+  {
+    "Symbol": "NSE:TRENT",
+    "Side": "Buy",
+    "Qty": 4.0,
+    "Fill Price": 2422.7,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T07:36:29"
+  },
+  {
+    "Symbol": "NSE:TMPV",
+    "Side": "Buy",
+    "Qty": 30.0,
+    "Fill Price": 330.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T07:35:16"
+  },
+  {
+    "Symbol": "NSE:IGL",
+    "Side": "Buy",
+    "Qty": 64.0,
+    "Fill Price": 154.05,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T07:02:00"
+  },
+  {
+    "Symbol": "NSE:GAIL",
+    "Side": "Buy",
+    "Qty": 68.0,
+    "Fill Price": 147.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T07:01:27"
+  },
+  {
+    "Symbol": "NSE:ATGL",
+    "Side": "Buy",
+    "Qty": 21.0,
+    "Fill Price": 468.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T07:00:43"
+  },
+  {
+    "Symbol": "NSE:PVRINOX",
+    "Side": "Buy",
+    "Qty": 10.0,
+    "Fill Price": 999.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T06:57:17"
+  },
+  {
+    "Symbol": "NSE:TATAELXSI",
+    "Side": "Buy",
+    "Qty": 2.0,
+    "Fill Price": 4505.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T06:56:15"
+  },
+  {
+    "Symbol": "NSE:ACC",
+    "Side": "Buy",
+    "Qty": 6.0,
+    "Fill Price": 1562.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T06:56:03"
+  },
+  {
+    "Symbol": "NSE:DIXON",
+    "Side": "Buy",
+    "Qty": 1.0,
+    "Fill Price": 10378.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T06:55:40"
+  },
+  {
+    "Symbol": "NSE:BATAINDIA",
+    "Side": "Buy",
+    "Qty": 14.0,
+    "Fill Price": 732.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-09T06:55:23"
+  },
+  {
+    "Symbol": "$CASH",
+    "Side": "Deposit",
+    "Qty": 201000.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-03-09T06:54:00"
+  },
+  {
+    "Symbol": "NSE:ADFFOODS",
+    "Side": "Dividend",
+    "Qty": 33.600001344,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-09-11T00:00:00"
+  },
+  {
+    "Symbol": "NSE:ASIANPAINT",
+    "Side": "Dividend",
+    "Qty": 115.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-07-13T00:00:00"
+  },
+  {
+    "Symbol": "NSE:BATAINDIA",
+    "Side": "Dividend",
+    "Qty": 126.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-08-31T00:00:00"
+  },
+  {
+    "Symbol": "NSE:BATAINDIA",
+    "Side": "Dividend",
+    "Qty": 350.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-09-02T00:00:00"
+  },
+  {
+    "Symbol": "NSE:BERGEPAINT",
+    "Side": "Dividend",
+    "Qty": 104.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-08-21T00:00:00"
+  },
+  {
+    "Symbol": "NSE:JUBLFOOD",
+    "Side": "Dividend",
+    "Qty": 27.60000115,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-08-31T00:00:00"
+  },
+  {
+    "Symbol": "NSE:KANSAINER",
+    "Side": "Dividend",
+    "Qty": 142.5,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-07-14T00:00:00"
+  },
+  {
+    "Symbol": "NSE:TMPV",
+    "Side": "Dividend",
+    "Qty": 90.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-07-14T00:00:00"
+  },
+  {
+    "Symbol": "NSE:IRFC",
+    "Side": "Dividend",
+    "Qty": 108.14999485,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-03-24T00:00:00"
+  },
+  {
+    "Symbol": "NSE:TRENT",
+    "Side": "Dividend",
+    "Qty": 16.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-06-29T00:00:00"
+  },
+  {
+    "Symbol": "NSE:ADANIENT",
+    "Side": "Dividend",
+    "Qty": 6.49999975,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-06-30T00:00:00"
+  },
+  {
+    "Symbol": "NSE:ATGL",
+    "Side": "Dividend",
+    "Qty": 5.25,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-06-26T00:00:00"
+  },
+  {
+    "Symbol": "NSE:TATACHEM",
+    "Side": "Dividend",
+    "Qty": 176.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-06-30T00:00:00"
+  },
+  {
+    "Symbol": "NSE:ACC",
+    "Side": "Dividend",
+    "Qty": 45.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-07-01T00:00:00"
+  },
+  {
+    "Symbol": "NSE:TATAELXSI",
+    "Side": "Dividend",
+    "Qty": 150.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-06-30T00:00:00"
+  },
+  {
+    "Symbol": "NSE:TMCV",
+    "Side": "Buy",
+    "Qty": 12.0,
+    "Fill Price": 424.85,
+    "Commission": 0.0,
+    "Closing Time": "2026-09-16T05:55:02"
+  },
+  {
+    "Symbol": "NSE:LIQUIDBEES",
+    "Side": "Buy",
+    "Qty": 110.0,
+    "Fill Price": 1000.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-09-15T08:36:26"
+  },
+  {
+    "Symbol": "NSE:ITC",
+    "Side": "Buy",
+    "Qty": 39.0,
+    "Fill Price": 260.6,
+    "Commission": 0.0,
+    "Closing Time": "2026-09-15T07:28:45"
+  },
+  {
+    "Symbol": "NSE:HAVELLS",
+    "Side": "Buy",
+    "Qty": 10.0,
+    "Fill Price": 1088.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-09-15T07:28:17"
+  },
+  {
+    "Symbol": "NSE:CONCOR",
+    "Side": "Buy",
+    "Qty": 21.0,
+    "Fill Price": 490.2,
+    "Commission": 0.0,
+    "Closing Time": "2026-09-15T07:27:08"
+  },
+  {
+    "Symbol": "NSE:GOLDBEES",
+    "Side": "Buy",
+    "Qty": 85.0,
+    "Fill Price": 118.65,
+    "Commission": 0.0,
+    "Closing Time": "2026-07-07T09:59:00"
+  },
+  {
+    "Symbol": "NSE:GODREJPROP",
+    "Side": "Buy",
+    "Qty": 6.0,
+    "Fill Price": 1705.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-04-13T05:30:53"
+  },
+  {
+    "Symbol": "NSE:GUJENERGY",
+    "Side": "Buy",
+    "Qty": 33.0,
+    "Fill Price": 305.0,
+    "Commission": 0.0,
+    "Closing Time": "2026-03-13T03:45:00"
+  },
+  {
+    "Symbol": "$CASH",
+    "Side": "Deposit",
+    "Qty": 200000.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-02-27T00:00:00"
+  },
+  {
+    "Symbol": "NSE:GODREJPROP",
+    "Side": "Dividend",
+    "Qty": 60.0,
+    "Fill Price": null,
+    "Commission": null,
+    "Closing Time": "2026-08-31T00:00:00"
+  }
+]
