@@ -26,21 +26,55 @@ export async function refreshPrices(env: Bindings) {
   }
 }
 
-export async function refreshHistory(env: Bindings) {
-  const symbols = [...getAllSymbols(), "^NSEI"]; // include Nifty for the benchmark chart
-  try {
-    const fresh = await fetchFullHistory(symbols, START_DATE);
-    await mergeAndSaveHistory(env.PORTFOLIO_CACHE, fresh);
-    console.log(`refreshHistory: updated ${Object.keys(fresh).length}/${symbols.length} symbols`);
-  } catch (err) {
-    console.error("refreshHistory failed entirely", err);
+// export async function refreshHistory(env: Bindings) {
+//   const symbols = [...getAllSymbols(), "^NSEI"]; // include Nifty for the benchmark chart
+//   try {
+//     const fresh = await fetchFullHistory(symbols, START_DATE);
+//     await mergeAndSaveHistory(env.PORTFOLIO_CACHE, fresh);
+//     console.log(`refreshHistory: updated ${Object.keys(fresh).length}/${symbols.length} symbols`);
+//   } catch (err) {
+//     console.error("refreshHistory failed entirely", err);
+//   }
+// }
+
+// export async function scheduled(event: ScheduledEvent, env: Bindings, ctx: ExecutionContext) {
+//   if (event.cron === "*/30 * * * *") {
+//     ctx.waitUntil(refreshPrices(env));
+//   } else if (event.cron === "0 3 */2 * *") {
+//     ctx.waitUntil(refreshHistory(env));
+//   }
+// }
+
+const BATCH_SIZE = 10;
+
+export async function refreshHistoryBatch(env: Bindings, batchIndex?: number) {
+  const allSymbols = [...getAllSymbols(), "^NSEI"];
+  const totalBatches = Math.ceil(allSymbols.length / BATCH_SIZE);
+
+  let idx = batchIndex;
+  if (idx === undefined) {
+    // called by cron: rotate automatically, remembering position in KV
+    const stored = Number((await env.PORTFOLIO_CACHE.get("HISTORY_BATCH_INDEX")) || "0");
+    idx = stored % totalBatches;
+    await env.PORTFOLIO_CACHE.put("HISTORY_BATCH_INDEX", String((idx + 1) % totalBatches));
   }
+
+  const batch = allSymbols.slice(idx * BATCH_SIZE, (idx + 1) * BATCH_SIZE);
+  if (batch.length === 0) return { batch: idx, totalBatches, symbolsProcessed: 0 };
+
+  try {
+    const fresh = await fetchFullHistory(batch, START_DATE);
+    await mergeAndSaveHistory(env.PORTFOLIO_CACHE, fresh);
+  } catch (err) {
+    console.error("refreshHistoryBatch failed", err);
+  }
+  return { batch: idx, totalBatches, symbolsProcessed: batch.length };
 }
 
 export async function scheduled(event: ScheduledEvent, env: Bindings, ctx: ExecutionContext) {
   if (event.cron === "*/30 * * * *") {
     ctx.waitUntil(refreshPrices(env));
-  } else if (event.cron === "0 3 */2 * *") {
-    ctx.waitUntil(refreshHistory(env));
+  } else if (event.cron === "0 */3 * * *") {
+    ctx.waitUntil(refreshHistoryBatch(env)); // no batchIndex = auto-rotate
   }
 }

@@ -3,7 +3,7 @@ import { cors } from "hono/cors";
 import transactions from "./data/transactions.json";
 import { calculatePortfolio } from "./lib/calculatePortfolio";
 import { getPriceSnapshot, getHistorySnapshot } from "./lib/kv";
-import { refreshPrices, refreshHistory, scheduled } from "./scheduled";
+import { refreshPrices, refreshHistory, scheduled, refreshHistoryBatch } from "./scheduled";
 
 type Bindings = { PORTFOLIO_CACHE: KVNamespace };
 
@@ -102,10 +102,15 @@ app.get("/api/portfolio", async (c) => {
 
 // Manual trigger for local testing — lets you populate KV without waiting
 // for a real cron tick. Safe to keep in production too as a manual refresh.
-app.post("/api/refresh", async (c) => {
-    await refreshPrices(c.env);
-    await refreshHistory(c.env);
-    return c.json({ ok: true });
+app.post("/api/refresh/prices", async (c) => {
+  await refreshPrices(c.env);
+  return c.json({ ok: true });
+});
+
+app.post("/api/refresh/history", async (c) => {
+  const batchIndex = Number(c.req.query("batch")) || 0;
+  const result = await refreshHistoryBatch(c.env, batchIndex);
+  return c.json({ ok: true, ...result });
 });
 
 export default { fetch: app.fetch, scheduled };
