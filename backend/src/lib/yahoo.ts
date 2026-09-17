@@ -12,24 +12,42 @@ export type PriceEntry = { ltp: number; updatedAt: number };
 export type PriceSnapshot = Record<string, PriceEntry>;
 
 /** Fetches current LTP for every symbol in parallel (not sequentially). */
-export async function fetchLatestPrices(symbols: string[]): Promise<PriceSnapshot> {
-  const results = await Promise.allSettled(
-    symbols.map(async (sym) => {
-      const yfSymbol = formatSymbol(sym);
-      const quote = await yahooFinance.quote(yfSymbol);
-      return { sym, ltp: quote?.regularMarketPrice ?? null };
-    })
-  );
+// export async function fetchLatestPrices(symbols: string[]): Promise<PriceSnapshot> {
+//   const results = await Promise.allSettled(
+//     symbols.map(async (sym) => {
+//       const yfSymbol = formatSymbol(sym);
+//       const quote = await yahooFinance.quote(yfSymbol);
+//       return { sym, ltp: quote?.regularMarketPrice ?? null };
+//     })
+//   );
 
+//   const snapshot: PriceSnapshot = {};
+//   results.forEach((r, i) => {
+//     const sym = symbols[i];
+//     if (r.status === "fulfilled" && r.value.ltp != null) {
+//       snapshot[sym] = { ltp: r.value.ltp, updatedAt: Date.now() };
+//     }
+//     // On failure we simply omit it here; the caller merges this with the
+//     // previous snapshot so a transient failure doesn't blank out a price.
+//   });
+//   return snapshot;
+// }
+
+export async function fetchLatestPrices(symbols: string[]): Promise<PriceSnapshot> {
+  const yfSymbols = symbols.map(formatSymbol);
   const snapshot: PriceSnapshot = {};
-  results.forEach((r, i) => {
-    const sym = symbols[i];
-    if (r.status === "fulfilled" && r.value.ltp != null) {
-      snapshot[sym] = { ltp: r.value.ltp, updatedAt: Date.now() };
-    }
-    // On failure we simply omit it here; the caller merges this with the
-    // previous snapshot so a transient failure doesn't blank out a price.
-  });
+  try {
+    const quotes = await yahooFinance.quote(yfSymbols); // one call for all symbols
+    const list = Array.isArray(quotes) ? quotes : [quotes];
+    list.forEach((q: any) => {
+      const idx = yfSymbols.indexOf(q.symbol);
+      if (idx !== -1 && q.regularMarketPrice != null) {
+        snapshot[symbols[idx]] = { ltp: q.regularMarketPrice, updatedAt: Date.now() };
+      }
+    });
+  } catch (err) {
+    console.error("fetchLatestPrices batch call failed", err);
+  }
   return snapshot;
 }
 
