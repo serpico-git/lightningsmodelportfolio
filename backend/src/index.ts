@@ -3,7 +3,8 @@ import { cors } from "hono/cors";
 import transactions from "./data/transactions.json";
 import { calculatePortfolio } from "./lib/calculatePortfolio";
 import { getPriceSnapshot, getHistorySnapshot } from "./lib/kv";
-import { refreshPrices, refreshHistory, scheduled, refreshHistoryBatch } from "./scheduled";
+import { refreshPrices, scheduled, refreshHistoryBatch } from "./scheduled";
+import { buildBenchmarkSeries } from "./lib/benchmark";
 
 type Bindings = { PORTFOLIO_CACHE: KVNamespace };
 
@@ -54,34 +55,21 @@ app.get("/api/portfolio", async (c) => {
     }
     portfolioData.forEach((p) => (p.allocation = totalMtm > 0 ? (p.value / totalMtm) * 100 : 0));
 
-    // Benchmark series: walk Nifty's date list, sum portfolio value per date
-    const niftyQuotes = history["^NSEI"]?.quotes ?? {};
-    const dates = Object.keys(niftyQuotes).sort();
-    let benchmark: any[] = [];
-    if (dates.length > 0) {
-        const niftyBase = niftyQuotes[dates[0]];
-        let portfolioBase: number | null = null;
-        const lastKnownPrice: Record<string, number> = {};
-
-        for (const date of dates) {
-            let dailyPortValue = 0;
-            for (const item of holdingsMap.values()) {
-                const price = history[item.symbol]?.quotes?.[date];
-                if (price != null) lastKnownPrice[item.symbol] = price;
-                dailyPortValue += (lastKnownPrice[item.symbol] ?? item.avgPrice) * item.qty;
-            }
-            if (portfolioBase === null && dailyPortValue > 0) portfolioBase = dailyPortValue;
-            const pBase = portfolioBase || 1;
-            benchmark.push({
-                date: new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-                niftyReturn: ((niftyQuotes[date] - niftyBase) / niftyBase) * 100,
-                portfolioReturn: ((dailyPortValue - pBase) / pBase) * 100,
-            });
-        }
-    }
-
+    // // Benchmark series: walk Nifty's date list, sum portfolio value per date
     const unrealizedGain = totalMtm - totalInvested;
+    const benchmark = buildBenchmarkSeries(transactions as any, history);
     const totalGain = totalRealizedGain + unrealizedGain + totalCsvDividends;
+
+    // Use the chart's own final value as the headline return %, so the summary
+    // card and the line chart can never show two different numbers for the
+    // same thing. Falls back to the old cost-based calc only if the chart has
+    // no data yet (e.g. right after first deploy, before history is populated).
+    const totalGainPct =
+        benchmark.length > 0
+            ? benchmark[benchmark.length - 1].portfolioReturn
+            : totalCumulativeBuyCost > 0
+                ? (totalGain / totalCumulativeBuyCost) * 100
+                : 0;
 
     return c.json({
         summary: {
@@ -93,7 +81,7 @@ app.get("/api/portfolio", async (c) => {
             realizedGains: totalRealizedGain,
             totalDividends: totalCsvDividends,
             totalGain,
-            totalGainPct: totalCumulativeBuyCost > 0 ? (totalGain / totalCumulativeBuyCost) * 100 : 0,
+            totalGainPct,
         },
         portfolioData,
         benchmark,
@@ -103,14 +91,14 @@ app.get("/api/portfolio", async (c) => {
 // Manual trigger for local testing — lets you populate KV without waiting
 // for a real cron tick. Safe to keep in production too as a manual refresh.
 app.post("/api/refresh/prices", async (c) => {
-  await refreshPrices(c.env);
-  return c.json({ ok: true });
+    await refreshPrices(c.env);
+    return c.json({ ok: true });
 });
 
 app.post("/api/refresh/history", async (c) => {
-  const batchIndex = Number(c.req.query("batch")) || 0;
-  const result = await refreshHistoryBatch(c.env, batchIndex);
-  return c.json({ ok: true, ...result });
+    const batchIndex = Number(c.req.query("batch")) || 0;
+    const result = await refreshHistoryBatch(c.env, batchIndex);
+    return c.json({ ok: true, ...result });
 });
 
 export default { fetch: app.fetch, scheduled };
